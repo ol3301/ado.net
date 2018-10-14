@@ -1,0 +1,29 @@
+﻿<Window x:Class="Library.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library"
+        mc:Ignorable="d"
+        Title="Library books" Height="450" Width="800" Background="Transparent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="00.jpg" />
+        </Grid.Background>
+
+        <UniformGrid Grid.Row="0">
+            <Button Content="Запрос 1" Height="19" Margin="0,0,-0.2,0.2" VerticalAlignment="Bottom" Click="Button_Click"/>
+            <Button Content="Запрос 2" Click="Button_Click_1"/>
+            <Button Content="Запрос 3" Click="Button_Click_2"/>
+            <Button Content="Запрос 4" Click="Button_Click_3"/>
+            <Button Content="Запрос 5" Click="Button_Click_4"/>
+        </UniformGrid>
+
+        <DataGrid x:Name="datagrid" Grid.Row="1" />
+    </Grid>
+</Window>
