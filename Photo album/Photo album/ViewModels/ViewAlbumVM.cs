@@ -28,8 +28,6 @@ namespace Photo_album
 
         public ICommand Rename
         {
-
-            //просто лол
             get => _rename ?? (_rename = new RelayCommand(obj=>
             {
                 string text = (string)obj;
