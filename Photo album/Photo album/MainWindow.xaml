@@ -68,7 +68,8 @@
             <Button Margin="2" Grid.Row="1" Grid.Column="1" Content="Переименовать"
                     Command="{Binding Rename}"
                     CommandParameter="{Binding ElementName=description,Path=Text}"/>
-            <Button Margin="2" Grid.Row="1" Grid.Column="2" Content="Удалить"/>
+            <Button Margin="2" Grid.Row="1" Grid.Column="2" Content="Удалить"
+                    Command="{Binding Remove}"/>
 
             <TextBlock Margin="10 0 0 0" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Категория:"/>
             <ComboBox Margin="2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
@@ -76,9 +77,9 @@
                       SelectedIndex="0"/> 
             
             <DataGrid x:Name="datag" Margin="2" Grid.Row="3" Grid.ColumnSpan="3" Background="Gray"
-                      AutoGenerateColumns="False" IsReadOnly="True"
-                      ItemsSource="{Binding Rows}"
-                      SelectedItem="{Binding SelectedDataRow, Mode=OneWayToSource}">
+                      AutoGenerateColumns="False" IsReadOnly="False"
+                      ItemsSource="{Binding Rows,UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedDataRow, Mode=TwoWay}">
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Категория" Binding="{Binding ItemArray[3]}" Width="*"/>

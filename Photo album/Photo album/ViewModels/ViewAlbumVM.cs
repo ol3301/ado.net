@@ -15,7 +15,18 @@ namespace Photo_album
         private DataTable _album;
         private ICommand _rename;
         private DataRow _selectedDataRow;
+        private ICommand _remove;
 
+        public ICommand Remove
+        {
+            get => _remove ?? (_remove = new RelayCommand(obj=>
+            {
+                SelectedDataRow.Delete();
+
+                SqlWorker.Update(Album.TableName);
+            }));
+        }
+        
         public DataTable Album
         {
             get { return _album; }
@@ -30,8 +41,13 @@ namespace Photo_album
         {
             get => _rename ?? (_rename = new RelayCommand(obj=>
             {
-                string text = (string)obj;
-                SelectedDataRow.ItemArray.SetValue(text,2);
+                //Пришлось делать Clone для ItemArray, там делать все 
+                //изменения, а затем присваивать измененный ItemArray начальному.
+                //так почему то не робит.
+                //SelectedDataRow.ItemArray.SetValue(sometext,2);
+
+                SetRowDesc(SelectedDataRow, (string)obj);
+
                 SqlWorker.Update(Album.TableName);
             }));
         }
@@ -61,15 +77,24 @@ namespace Photo_album
 
         private void InsertRow()
         {
-            Album.Rows.Add(1,File.ReadAllBytes(@"D:\Images\68450.jpg"),"lol","cata","2018-10-21");
+            Album.Rows.Add(null,File.ReadAllBytes(@"D:\Images\68450.jpg"),"lol","cata","2018-10-21");
             SqlWorker.Update(Album.TableName);
+        }
+
+        private void SetRowDesc(DataRow row,string text)
+        {
+            object[] temp = (object[])row.ItemArray.Clone();
+            temp.SetValue(text, 2);
+            row.ItemArray = temp;
         }
 
 
         public void LoadData(DataTable album)
         {
             Album = album;
+           
             GetCategories(album);
+            
             //InsertRow();
         }
 
