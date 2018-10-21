@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Photo_album.Creation_new_photo_album"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Photo_album"
+             mc:Ignorable="d" 
+             x:Name="page"
+             Height="100" Width="400" Tag="Создание нового фотольбома">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Введите название нового фотольбома: "/>
+            <TextBox  Text="{Binding Name, Mode=OneWayToSource}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Width="100" Height="30" Content="Отмена"
+                    Command="{Binding Close}"/>
+            <Button Width="100" Height="30" Margin="10 0 0 0" Content="Ок"
+                    Command="{Binding Add}"
+                    CommandParameter="{Binding ElementName=page}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
