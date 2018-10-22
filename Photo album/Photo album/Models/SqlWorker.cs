@@ -98,5 +98,13 @@ SELECT name FROM sysobjects WHERE status>=0 AND type='U' ", conn);
             
             adapter.Update(set.Tables[tablename]);
         }
+
+        public static DataRowCollection SortTable(string tablename,string category)
+        {
+            //DataViewManager manager = new DataViewManager(set);
+            //manager.DataViewSettings[tablename].RowFilter = $"Category = '{category}'";
+            //return manager.CreateDataView(set.Tables[tablename]);
+            return null;
+        }
     }
 }

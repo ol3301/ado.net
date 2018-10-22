@@ -16,6 +16,7 @@ namespace Photo_album
         private ICommand _rename;
         private DataRow _selectedDataRow;
         private ICommand _remove;
+        private string _selectedCategory;
 
         public ICommand Remove
         {
@@ -52,10 +53,34 @@ namespace Photo_album
             }));
         }
 
-        public DataRowCollection Rows
+        public DataView Rows
         {
-            get => Album?.Rows;
+            get
+            {
+                return Album?.DefaultView ;
+            }
             //set => Album?.Rows = value;
+        }
+
+        public string SelectedCategory
+        {
+            set
+            {
+                _selectedCategory = value;
+
+                if(value == "(Все)")
+                {
+                    Album.DefaultView.RowFilter = "";
+                    Album.DefaultView.Sort = "Date";
+                    return;
+                }
+
+                Album.DefaultView.RowFilter = $"Category = '{value}'";
+                Album.DefaultView.Sort = "";
+
+                RaisePropertyChanged();
+            }
+            get => _selectedCategory;
         }
 
         public ObservableCollection<string> Categories { get; set; }
@@ -77,7 +102,7 @@ namespace Photo_album
 
         private void InsertRow()
         {
-            Album.Rows.Add(null,File.ReadAllBytes(@"D:\Images\68450.jpg"),"lol","cata","2018-10-21");
+            Album.Rows.Add(1,File.ReadAllBytes(@"D:\Images\68450.jpg"),"lol","56j56j6jyu","2018-10-21");
             SqlWorker.Update(Album.TableName);
         }
 
@@ -94,6 +119,8 @@ namespace Photo_album
             Album = album;
            
             GetCategories(album);
+
+            SelectedCategory = "(Все)";
             
             //InsertRow();
         }
@@ -102,8 +129,9 @@ namespace Photo_album
         {
             Categories.Clear();
             Categories.Add("(Все)");
-            foreach (DataRow row in album.Rows)
-                Categories.Add(row.ItemArray[3].ToString());                                
+            var data = (from c in album.AsEnumerable() select c.ItemArray[3]).Distinct();
+            foreach (string row in data)
+                Categories.Add(row);
         }
     }
 }

@@ -74,17 +74,14 @@
             <TextBlock Margin="10 0 0 0" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Категория:"/>
             <ComboBox Margin="2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                       ItemsSource="{Binding Categories}"
-                      SelectedIndex="0"/> 
+                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/> 
             
             <DataGrid x:Name="datag" Margin="2" Grid.Row="3" Grid.ColumnSpan="3" Background="Gray"
-                      AutoGenerateColumns="False" IsReadOnly="False"
-                      ItemsSource="{Binding Rows,UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="True" IsReadOnly="True"
+                      ItemsSource="{Binding Rows}"
                       SelectedItem="{Binding SelectedDataRow, Mode=TwoWay}">
                 
-                <DataGrid.Columns>
-                    <DataGridTextColumn  Header="Категория" Binding="{Binding ItemArray[3]}" Width="*"/>
-                    <DataGridTextColumn  Header="Дата" Binding="{Binding ItemArray[4]}"/>
-                </DataGrid.Columns>
+              
                 
                 
             </DataGrid>
