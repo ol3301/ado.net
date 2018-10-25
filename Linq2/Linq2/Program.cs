@@ -76,10 +76,7 @@ namespace Linq2
         {
             string s = "ol.kyzy@gmail.com" ;
 
-            if (s.CheckEmail(@"\w*@\w*"))
-                Console.WriteLine("yes");
-            else
-                Console.WriteLine("no");
+            bool b = s.CheckEmail(@"\w*@\w*");          
         }
         static void task3()
         {
@@ -114,9 +111,6 @@ namespace Linq2
 
             var countries = (from c in departments
                              select c).Distinct();
-
-            foreach (var i in countries)
-                Console.WriteLine(i.country);
 
             var data = (from c in emploees
                         where c.age > 25
@@ -156,7 +150,6 @@ namespace Linq2
             //task1();
             //task2();
             task3();
-            Console.Read();
         }
     }
 }
