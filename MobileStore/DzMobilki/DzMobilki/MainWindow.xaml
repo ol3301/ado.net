@@ -1,0 +1,42 @@
+﻿<Window x:Class="DzMobilki.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:DzMobilki"
+        mc:Ignorable="d"
+        Title="Работы с бд мобилки" Height="357.6" Width="569.6"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Resources>
+            <local:StringToGridData x:Key="ToGridData"/>
+        </Grid.Resources>
+        
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card Grid.Row="0" Grid.Column="0" Margin="10" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Введите ключевые слова (-m,-n,-p) и значение" Grid.Row="0"/>
+                <TextBox Grid.Row="1" Grid.Column="0" x:Name="user_request"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card VerticalAlignment="Stretch" Margin="10" Padding="10" Grid.Row="1" Grid.Column="0">
+            <DataGrid ItemsSource="{Binding ElementName=user_request, Path=Text, Mode=OneWay,
+                Converter= {StaticResource ToGridData}  }"/>
+        </materialDesign:Card>
+    </Grid>
+</Window>
